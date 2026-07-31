@@ -10,12 +10,17 @@
 
 import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
 import { Calendar, Clock, MapPin, Heart, Volume2, VolumeX, Sparkles } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import Admin from "./Admin";
 
 const WEDDING_DATE = new Date("2026-08-22T09:00:00");
 const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwaYoopChr4CYW1Cv4978HI_CA_hG5u6m1e1uBPppu4QCIosJAwkg5nfTKUhfnaVydbdw/exec";
 
 export default function App() {
+  if (window.location.pathname === '/admin') {
+    return <Admin />;
+  }
+
   const [isLoading, setIsLoading] = useState(true);
   const [isEnvelopeOpened, setIsEnvelopeOpened] = useState(false);
   const [showWebsite, setShowWebsite] = useState(false);
@@ -29,8 +34,7 @@ export default function App() {
 
   const [rsvpForm, setRsvpForm] = useState({
     fullName: "",
-    guests: "1 Guest (Just Me)",
-    dietaryNotes: ""
+    guests: "1 Guest (Just Me)"
   });
   const [wishForm, setWishForm] = useState({
     name: "",
@@ -69,15 +73,13 @@ export default function App() {
       await submitToGoogleSheets({
         formType: "rsvp",
         fullName: rsvpForm.fullName,
-        guests: rsvpForm.guests,
-        dietaryNotes: rsvpForm.dietaryNotes
+        guests: rsvpForm.guests
       });
 
       setRsvpStatus("success");
       setRsvpForm({
         fullName: "",
-        guests: "1 Guest (Just Me)",
-        dietaryNotes: ""
+        guests: "1 Guest (Just Me)"
       });
     } catch {
       setRsvpStatus("error");
@@ -172,7 +174,7 @@ export default function App() {
     <>
       <audio
         ref={audioRef}
-        src="/paulyudin-wedding-485932.mp3"
+        src="/Ed Sheeran - Perfect (1).mp3"
         loop
         preload="auto"
       />
@@ -401,19 +403,13 @@ export default function App() {
                     <p className="text-stone-600 font-serif text-xl mb-1">Mr. S.P Sujith Priyantha & Mrs. S.M Indira Siriwardana</p>
                     <p className="text-stone-600 font-serif text-xl mb-8">Mr. Lakmal Livera & Mrs. Ganga Ramanayaka</p>
 
-                    {hasGuest ? (
-                      <div className="mt-8 mb-10">
-                        <p className="text-stone-500 text-sm tracking-[0.2em] uppercase mb-4">We cordially invite</p>
-                        <p className="text-3xl font-display text-gold-dark pb-2 inline-block px-10 border-b border-gold/30">{guestPrefix} {guestName}</p>
-                        <p className="text-stone-500 text-sm tracking-[0.2em] uppercase mt-6">to the wedding of their beloved children</p>
-                      </div>
-                    ) : (
-                      <>
-                        <p className="text-stone-500 text-sm tracking-wide mb-2">Cordially request the honour of your presence at</p>
-                        <p className="text-stone-500 text-sm tracking-wide mb-8">the wedding of their beloved children</p>
-                        <p className="text-gold-dark font-serif italic text-lg border-b border-gold/30 pb-2 inline-block px-10">Mr. & Mrs/Mr/Mrs/Miss/Family</p>
-                      </>
-                    )}
+                    <>
+                      <p className="text-stone-500 text-sm tracking-wide mb-2">Cordially request the honour of your presence at</p>
+                      <p className="text-stone-500 text-sm tracking-wide mb-8">the wedding of their beloved children</p>
+                      <p className="text-gold-dark font-serif italic text-lg border-b border-gold/30 pb-2 inline-block px-10">
+                        {hasGuest ? `${guestPrefix} ${guestName}` : "Mr. & Mrs/Mr/Mrs/Miss/Family"}
+                      </p>
+                    </>
                   </div>
 
                   <p className="text-stone-500 tracking-widest text-sm mb-6 text-center">On the occasion of the marriage of</p>
@@ -437,8 +433,11 @@ export default function App() {
                   </div>
 
                   <div className="text-center">
-                    <p className="text-stone-600 font-semibold tracking-widest uppercase mb-2">From 11.00 AM to 4.00 PM</p>
-                    <p className="text-stone-500 font-serif italic text-lg">(9.00 AM Church | 11.05 AM Poruwa)</p>
+                    <div className="mb-4 inline-block px-8 py-3 border-2 border-gold rounded-full bg-gold/10 shadow-[0_0_15px_rgba(200,155,83,0.3)]">
+                      <span className="text-gold-dark font-bold tracking-widest uppercase text-lg">9.00 AM - Church Ceremony</span>
+                    </div>
+                    <p className="text-stone-600 font-semibold tracking-widest uppercase mb-2">Reception: 11.00 AM to 4.00 PM</p>
+                    <p className="text-stone-500 font-serif italic text-lg">(11.05 AM Poruwa)</p>
                   </div>
                 </motion.div>
 
@@ -476,6 +475,43 @@ export default function App() {
                 </div>
                 <div className="mt-12 text-center">
                   <p className="text-stone-400 uppercase tracking-[0.3em] text-[10px]">Countdown to our forever</p>
+                </div>
+              </div>
+            </section>
+
+            {/* Gallery Section: Pre-Wedding Shoot */}
+            <section className="py-32 bg-ivory text-ink relative overflow-hidden">
+              <div className="max-w-7xl mx-auto px-8">
+                <div className="text-center mb-20">
+                  <span className="text-gold uppercase tracking-[0.5em] text-[10px] font-bold mb-4 block">Capturing Moments</span>
+                  <h2 className="text-5xl md:text-6xl font-display mb-6">Pre-Wedding Gallery</h2>
+                  <div className="h-px w-24 bg-gold/30 mx-auto" />
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {[
+                    "/pre/WhatsApp Image 2026-07-31 at 16.33.05.jpeg",
+                    "/pre/WhatsApp Image 2026-07-31 at 16.33.06 (1).jpeg",
+                    "/pre/WhatsApp Image 2026-07-31 at 16.33.06.jpeg",
+                    "/pre/WhatsApp Image 2026-07-31 at 16.33.07.jpeg"
+                  ].map((src, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: idx * 0.2, duration: 0.8 }}
+                      className="group relative aspect-[3/4] overflow-hidden rounded-2xl border border-gold/20 shadow-xl"
+                    >
+                      <img 
+                        src={src} 
+                        alt={`Pre-wedding ${idx + 1}`} 
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gold/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    </motion.div>
+                  ))}
                 </div>
               </div>
             </section>
@@ -532,42 +568,7 @@ export default function App() {
               </div>
             </section>
 
-            {/* Gallery Section: Pre-Wedding Shoot */}
-            <section className="py-32 bg-ivory text-ink relative overflow-hidden">
-              <div className="max-w-7xl mx-auto px-8">
-                <div className="text-center mb-20">
-                  <span className="text-gold uppercase tracking-[0.5em] text-[10px] font-bold mb-4 block">Capturing Moments</span>
-                  <h2 className="text-5xl md:text-6xl font-display mb-6">Pre-Wedding Gallery</h2>
-                  <div className="h-px w-24 bg-gold/30 mx-auto" />
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {[
-                    "/pre/WhatsApp Image 2026-07-31 at 16.33.05.jpeg",
-                    "/pre/WhatsApp Image 2026-07-31 at 16.33.06 (1).jpeg",
-                    "/pre/WhatsApp Image 2026-07-31 at 16.33.06.jpeg",
-                    "/pre/WhatsApp Image 2026-07-31 at 16.33.07.jpeg"
-                  ].map((src, idx) => (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: idx * 0.2, duration: 0.8 }}
-                      className="group relative aspect-[3/4] overflow-hidden rounded-2xl border border-gold/20 shadow-xl"
-                    >
-                      <img 
-                        src={src} 
-                        alt={`Pre-wedding ${idx + 1}`} 
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-gold/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </section>
+
 
             {/* Details: Hardware/Tool Style Grid */}
             <section className="py-40 bg-ivory-dark text-ink border-t border-gold/10">
@@ -586,7 +587,7 @@ export default function App() {
                 <div className="grid md:grid-cols-3 gap-px bg-gold/20 border border-gold/20">
                   {[
                     { icon: <Calendar size={24} />, title: "The Date", detail: "Saturday, Aug 22", sub: "2026" },
-                    { icon: <Clock size={24} />, title: "The Time", detail: "11.00 AM", sub: "9.00 AM Church | 11.05 AM Poruwa" },
+                    { icon: <Clock size={24} />, title: "The Schedule", detail: "9.00 AM", sub: "Church Ceremony | 11.00 AM Reception" },
                     { icon: <MapPin size={24} />, title: "The Venue", detail: "Avendra Garden", sub: "Hotel & St. Sebastian Church" }
                   ].map((item, i) => (
                     <motion.div
@@ -708,19 +709,7 @@ export default function App() {
                       </select>
                     </div>
 
-                    <div>
-                      <label className="text-[10px] uppercase tracking-[0.35em] font-bold text-stone-400 block mb-3">Dietary Notes</label>
-                      <textarea
-                        rows={4}
-                        placeholder="Allergies, Vegan, etc."
-                        value={rsvpForm.dietaryNotes}
-                        onChange={(e) => {
-                          setRsvpStatus("idle");
-                          setRsvpForm((prev) => ({ ...prev, dietaryNotes: e.target.value }));
-                        }}
-                        className="w-full bg-transparent border border-gold/30 rounded-2xl px-5 py-4 focus:border-gold outline-none transition-all text-stone-600 resize-none"
-                      />
-                    </div>
+
 
                     <motion.button
                       whileHover={{ scale: 1.02 }}
