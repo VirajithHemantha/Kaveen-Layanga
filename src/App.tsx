@@ -436,8 +436,10 @@ export default function App() {
                     <div className="mb-4 inline-block px-8 py-3 border-2 border-gold rounded-full bg-gold/10 shadow-[0_0_15px_rgba(200,155,83,0.3)]">
                       <span className="text-gold-dark font-bold tracking-widest uppercase text-lg">9.00 AM - Church Ceremony</span>
                     </div>
-                    <p className="text-stone-600 font-semibold tracking-widest uppercase mb-2">Reception: 11.00 AM to 4.00 PM</p>
-                    <p className="text-stone-500 font-serif italic text-lg">(11.05 AM Poruwa)</p>
+                    <p className="text-stone-600 font-semibold tracking-widest uppercase mb-3">Reception: 11.00 AM to 4.00 PM</p>
+                    <div className="inline-block px-6 py-2 border-2 border-gold/80 rounded-full bg-gold/10 shadow-[0_0_10px_rgba(200,155,83,0.2)]">
+                      <span className="text-gold-dark font-bold tracking-widest uppercase text-base">11.05 AM - Poruwa</span>
+                    </div>
                   </div>
                 </motion.div>
 
@@ -480,38 +482,24 @@ export default function App() {
             </section>
 
             {/* Gallery Section: Pre-Wedding Shoot */}
-            <section className="py-32 bg-ivory text-ink relative overflow-hidden">
-              <div className="max-w-7xl mx-auto px-8">
-                <div className="text-center mb-20">
-                  <span className="text-gold uppercase tracking-[0.5em] text-[10px] font-bold mb-4 block">Capturing Moments</span>
-                  <h2 className="text-5xl md:text-6xl font-display mb-6">Pre-Wedding Gallery</h2>
-                  <div className="h-px w-24 bg-gold/30 mx-auto" />
-                </div>
+            <section className="py-12 md:py-32 bg-ivory text-ink relative overflow-hidden">
+              <div className="max-w-7xl mx-auto px-4 md:px-8">
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {[
-                    "/pre/WhatsApp Image 2026-07-31 at 16.33.05.jpeg",
-                    "/pre/WhatsApp Image 2026-07-31 at 16.33.06 (1).jpeg",
-                    "/pre/WhatsApp Image 2026-07-31 at 16.33.06.jpeg",
-                    "/pre/WhatsApp Image 2026-07-31 at 16.33.07.jpeg"
-                  ].map((src, idx) => (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: idx * 0.2, duration: 0.8 }}
-                      className="group relative aspect-[3/4] overflow-hidden rounded-2xl border border-gold/20 shadow-xl"
-                    >
-                      <img 
-                        src={src} 
-                        alt={`Pre-wedding ${idx + 1}`} 
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-gold/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    </motion.div>
-                  ))}
+                <div className="max-w-4xl mx-auto">
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    className="relative rounded-2xl overflow-hidden border border-gold/20 shadow-2xl"
+                  >
+                    <img 
+                      src="/pre/WhatsApp Image 2026-07-31 at 16.33.06.jpeg" 
+                      alt="Pre-wedding Moment" 
+                      className="w-full h-auto object-cover"
+                      loading="lazy"
+                    />
+                  </motion.div>
                 </div>
               </div>
             </section>
@@ -673,8 +661,9 @@ export default function App() {
                 >
                   <Sparkles className="text-gold mx-auto mb-8" size={32} />
                   <h2 className="text-5xl md:text-6xl font-display mb-6">Will You Join Us?</h2>
-                  <p className="text-stone-400 font-serif italic text-xl mb-16">
-                    Kindly respond by the 1st of August
+                  <p className="text-stone-400 font-serif italic text-xl mb-16 flex flex-col gap-2">
+                    <span>Kindly respond by the 1st of August</span>
+                    <span>Please inform us: 0763474511</span>
                   </p>
 
                   <form className="space-y-10 text-left" onSubmit={handleRsvpSubmit}>
